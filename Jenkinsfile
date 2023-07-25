@@ -20,6 +20,7 @@ pipeline {
                 sh 'cd webapp && ls dist'
             }
         }
+    }   
         stage('Deploy') { 
             steps {
                 echo 'Deploying...' 
