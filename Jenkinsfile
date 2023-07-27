@@ -28,7 +28,17 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
+                script {
+                def packageJSON = readJSON file: 'webapp/package.json'
+                def packageJSONVersion = packageJSON.version
+
                 echo "Deploying"
+                sh "curl -u admin:sai123 -X GET \'http://35.169.182.91:8081/repository/sai/dist-${packageJSONVersion}.zip\' --output dist-'${packageJSONVersion}'.zip"
+                sh 'sudo rm -rf /var/www/html/*'
+                sh "sudo unzip -o dist-'${packageJSONVersion}'.zip"
+                sh "sudo cp -r webapp/dist/* /var/www/html/"
+                
+                }
             }
         }
     }
