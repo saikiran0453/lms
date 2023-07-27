@@ -9,7 +9,14 @@ pipeline {
         }
         stage('Build & Release') { 
             steps {
+                script {
+                def packageJSON = readJSON file: 'webapp/package.json'
+                def packageJSONVersion = packageJSON.version
+                sh "echo '${packageJSONVersion}'"
+
                 echo 'Building'
+                sh 'cd webapp && npm install && npm run build'
+                sh 'cd webapp && ls dist'
             }
         }
         stage('Deploy') { 
