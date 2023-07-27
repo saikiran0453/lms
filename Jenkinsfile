@@ -1,21 +1,20 @@
 pipeline {
     agent any 
     stages {
-        stage('Test') { 
+        stage('Build') { 
             steps {
-                echo 'Sonar analysis'
-                sh 'cd webapp && sudo docker run  --rm -e SONAR_HOST_URL="http://35.169.182.91:9000" -e SONAR_LOGIN="sqp_41d41460899bb612e5c415c7fbac6b547bd61052"  -v ".:/usr/src" sonarsource/sonar-scanner-cli -Dsonar.projectKey=sai'
+                echo 'Building'
             }
         }
-        stage('Build & release') { 
+        stage('Test') { 
             steps {
-                echo 'Build'
+                echo 'Testing'
             }
         }
         stage('Deploy') { 
             steps {
-                echo 'Deploying'
+                echo "Deploying"
             }
         }
     }
-}
+} 
