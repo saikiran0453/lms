@@ -17,6 +17,8 @@ pipeline {
                 echo 'Building' 
                 sh 'cd webapp && npm install && npm run build'
                 sh 'cd webapp && ls dist'
+                
+                }
             }
         }
         stage('Deploy') { 
