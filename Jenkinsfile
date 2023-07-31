@@ -17,7 +17,11 @@ pipeline {
                 echo 'Building' 
                 sh 'cd webapp && npm install && npm run build'
                 sh 'cd webapp && ls dist'
-                
+
+                echo 'Releasing'
+                sh "zip webapp/dist-'${packageJSONVersion}'.zip -r webapp/dist"
+                sh "curl -v -u admin:sai123 --upload-file webapp/dist-'${packageJSONVersion}'.zip http://44.201.145.3:8081/repository/sai/"
+
                 }
             }
         }
